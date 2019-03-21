@@ -6,8 +6,10 @@
 #include "env_tests.h"
 #include "environment.h"
 
-#define HISTORY_SIZE    20
-#define ENV_UPDT_DELAY  2
+#define HISTORY_SIZE    10
+#define ENV_UPDT_DELAY  1
+#define ENV_MOVEMENT_MIN_TO_LIGHTS_OFF    2.5
+#define ENV_TEMPERATURE_MIN_TO_LIGHTS_OFF 25
 
 struct environment_status *history;
 
@@ -68,8 +70,26 @@ int es_order(struct environment_status* es) {
     return order;
 }
 
-bool check_environment(){
-    // pendiente.
+bool check_environment(struct environment_status *es) {
+
+    float eval_movement = 0.0;
+    float eval_temperature = 0.0;
+
+    while (es != NULL) {
+        eval_movement = eval_movement + es->movement;
+        eval_temperature = eval_temperature + es->temperature;
+        es = es->next;
+    }
+
+    eval_movement = (float)(eval_movement / HISTORY_SIZE);
+    eval_temperature = (float)(eval_temperature / HISTORY_SIZE);
+
+    printf("\nMOVEMENT: %f\tTEMPERATURE: %f\n", eval_movement, eval_temperature);
+
+
+    if (eval_movement <= ENV_MOVEMENT_MIN_TO_LIGHTS_OFF && eval_temperature < ENV_TEMPERATURE_MIN_TO_LIGHTS_OFF)
+        return true;
+
     return false;
 }
 
@@ -85,7 +105,7 @@ void program() {
         insert_es(tmp_update);
 
         if (es_order(history) == HISTORY_SIZE) {
-            MUST_TURN_OFF_LIGHTS = check_environment();
+            MUST_TURN_OFF_LIGHTS = check_environment(history);
             es_reset();
             break;
         }

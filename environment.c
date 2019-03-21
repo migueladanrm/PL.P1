@@ -4,15 +4,8 @@
 #include <time.h>
 #include <math.h>
 
-#define ENV_TEMPERATURE_MIN 17
-#define ENV_TEMPERATURE_MAX 34
-
-#define ENV_MOVEMENT_MIN    0
-#define ENV_MOVEMENT_MAX    5
 
 int env_current_temperature = 17;
-//int env_current_movement = 0;
-
 
 int env_update_movement() {
     int val = rand() % (ENV_MOVEMENT_MAX + 1 - ENV_MOVEMENT_MIN) + ENV_MOVEMENT_MIN;
