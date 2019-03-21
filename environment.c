@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define ENV_TEMPERATURE_MIN 17
+#define ENV_TEMPERATURE_MAX 34
+
+#define ENV_MOVEMENT_MIN    0
+#define ENV_MOVEMENT_MAX    5
+
 /**
  * Actualización del entorno.
  */
