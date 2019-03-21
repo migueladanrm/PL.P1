@@ -5,7 +5,7 @@
 struct environment_status {
     int movement;
     int temperature;
-    struct environment_status *sig;
+    struct environment_status *next;
 };
 
 //typedef struct environment_status environment_status;
