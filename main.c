@@ -45,8 +45,17 @@ void print_history(struct environment_status* es){
 }
 
 void es_reset() {
+    struct environment_status* es = history;
+    struct environment_status* tmp;
+
+    while(es != NULL){
+        tmp = es->next;
+        free(es);
+        es = tmp;
+    }
     free(history);
     history = NULL;
+
 }
 
 int es_order(struct environment_status* es) {
