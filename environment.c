@@ -11,10 +11,7 @@
 /**
  * Actualización del entorno.
  */
-struct environment_status {
-    double movement;
-    double temperature;
-};
+
 
 double env_update_movement() {
     return 0.0;

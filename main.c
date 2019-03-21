@@ -32,10 +32,13 @@ void delay(int number_of_seconds) {
 }
 
 int main() {
-    for (int i = 0; i < 10; i++) {
+    /*for (int i = 0; i < 10; i++) {
         printf("%i\n", random_test());
         delay(1);
     }
+*/
+    struct environment_status* x = environment_update();
 
+    printf("%d", x->movement);
     return 0;
 }
