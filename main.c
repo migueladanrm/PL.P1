@@ -5,40 +5,19 @@
 #include "env_tests.h"
 #include "environment.h"
 
-time_t now;
 
-int random_test() {
-    srand(time(now));
-
-    for (int i = 0; i < 1; ++i) {
-        double tmp = log2(rand());
-        int dec = (int) ((tmp - (int) tmp) * 100);
-        int pair = dec % 2;
-
-        return pair;
-    }
-}
-
-
-void delay(int number_of_seconds) {
-    // Converting time into milli_seconds
-    int milli_seconds = 1000 * sqrt(number_of_seconds) * number_of_seconds;
-
-    // Stroing start time
-    clock_t start_time = clock();
-
-    // looping till required time is not acheived
-    while (clock() < start_time + milli_seconds);
+void environment_update_print(struct environment_status* es) {
+    printf("ES:\tMovement: %i\tTemperature: %i\n", es->movement, es->temperature);
 }
 
 int main() {
-    /*for (int i = 0; i < 10; i++) {
-        printf("%i\n", random_test());
-        delay(1);
-    }
-*/
-    struct environment_status* x = environment_update();
+    // Inicialización de 'time' necesaria para generar números pseudo-aleatorios.
+    srand(time(NULL));
 
-    printf("%d", x->movement);
+    for (int i = 0; i < 100; ++i) {
+        struct environment_status *tmp = environment_update();
+        environment_update_print(tmp);
+    }
+
     return 0;
 }

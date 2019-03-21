@@ -1,6 +1,8 @@
 #include "environment.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <math.h>
 
 #define ENV_TEMPERATURE_MIN 17
 #define ENV_TEMPERATURE_MAX 34
@@ -8,17 +10,24 @@
 #define ENV_MOVEMENT_MIN    0
 #define ENV_MOVEMENT_MAX    5
 
-/**
- * Actualización del entorno.
- */
+int env_current_temperature = 17;
+//int env_current_movement = 0;
 
 
-double env_update_movement() {
-    return 0.0;
+int env_update_movement() {
+    int val = rand() % (ENV_MOVEMENT_MAX + 1 - ENV_MOVEMENT_MIN) + ENV_MOVEMENT_MIN;
+    return val;
 }
 
-double env_update_temperature() {
-    return 0.0;
+int env_update_temperature() {
+    int val = rand() % (ENV_TEMPERATURE_MAX + 1 - ENV_TEMPERATURE_MIN) + ENV_TEMPERATURE_MIN;
+
+    if (abs(env_current_temperature - val) <= 2) {
+        env_current_temperature = val;
+        return val;
+    }
+
+    return env_current_temperature;
 }
 
 struct environment_status* environment_update() {
