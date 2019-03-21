@@ -3,6 +3,7 @@
 #include <time.h>
 #include <math.h>
 #include "env_tests.h"
+#include "environment.h"
 
 time_t now;
 
