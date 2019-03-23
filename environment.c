@@ -5,7 +5,9 @@
 
 #define ENV_TEMPERATURE_MAX_DIFF 2
 
-// Temperatura actual.
+/**
+ * Temperatura actual.
+ */
 int env_current_temperature = ENV_TEMPERATURE_MIN;
 
 /**
