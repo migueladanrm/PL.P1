@@ -18,6 +18,7 @@
  * - Si se desea aumentar/disminuir la cantidad de muestras y tiempo, se pueden
  *   ajustar las constantes 'HISTORY_SIZE' y 'ENV_UPDATE_INTERVAL' respectivamente.
  */
+
 /**
  * Tamaño máximo de muestra que se utilizará para evaluación de datos.
  */
