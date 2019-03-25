@@ -32,7 +32,7 @@
 /**
  * Valor medio de movimiento para ejecutar acciones.
  */
-#define ENV_MOVEMENT_MIN_TO_LIGHTS_OFF      2.5
+#define ENV_MOTION_MIN_TO_LIGHTS_OFF      2.5
 
 /**
  * Valor medio de temperatura para ejecutar acciones.
@@ -78,7 +78,7 @@ unsigned int es_order(struct environment_status* es) {
  */
 void es_print(struct environment_status *es) {
     print_datetime();
-    printf("ES ->\tMovement: %i m/s\tTemperature: %i C\n", es->movement, es->temperature);
+    printf("ES ->\tMotion: %i m/s\tTemperature: %i C\n", es->motion, es->temperature);
 }
 
 /**
@@ -87,7 +87,7 @@ void es_print(struct environment_status *es) {
  */
 void es_history_push(struct environment_status *es) {
     struct environment_status *new = (struct environment_status *) malloc(sizeof(struct environment_status));
-    new->movement = es->movement;
+    new->motion = es->motion;
     new->temperature = es->temperature;
     new->next = NULL;
 
@@ -125,24 +125,24 @@ void es_history_reset() {
  * @return Evaluación booleana.
  */
 bool environment_check(struct environment_status *es) {
-    float eval_movement = 0.0;
+    float eval_motion = 0.0;
     float eval_temperature = 0.0;
 
     while (es != NULL) {
-        eval_movement = eval_movement + es->movement;
+        eval_motion = eval_motion + es->motion;
         eval_temperature = eval_temperature + es->temperature;
         es = es->next;
     }
 
     // Ponderación de resultados de sesión.
-    eval_movement = eval_movement / HISTORY_SIZE;
+    eval_motion = eval_motion / HISTORY_SIZE;
     eval_temperature = eval_temperature / HISTORY_SIZE;
 
     print_datetime();
-    printf("Session check result (average):\tM: %f m/s\tT: %f C\n",eval_movement,eval_temperature);
+    printf("Session check result (average):\tM: %f m/s\tT: %f C\n",eval_motion,eval_temperature);
 
     // Se verifican las condiciones necesarias para el apagado de las luces.
-    if (eval_movement <= ENV_MOVEMENT_MIN_TO_LIGHTS_OFF && eval_temperature < ENV_TEMPERATURE_MIN_TO_LIGHTS_OFF)
+    if (eval_motion <= ENV_MOTION_MIN_TO_LIGHTS_OFF && eval_temperature < ENV_TEMPERATURE_MIN_TO_LIGHTS_OFF)
         return true;
 
     return false;

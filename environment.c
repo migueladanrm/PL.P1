@@ -14,8 +14,8 @@ int env_current_temperature = ENV_TEMPERATURE_MIN;
  * Genera un valor de movimiento.
  * @return Movimiento (m/s).
  */
-int env_update_movement() {
-    int val = rand() % (ENV_MOVEMENT_MAX + 1 - ENV_MOVEMENT_MIN) + ENV_MOVEMENT_MIN;
+int env_update_motion() {
+    int val = rand() % (ENV_MOTION_MAX + 1 - ENV_MOTION_MIN) + ENV_MOTION_MIN;
     return val;
 }
 
@@ -38,7 +38,7 @@ int env_update_temperature() {
  */
 struct environment_status* environment_update() {
     struct environment_status *update = malloc(sizeof(struct environment_status));
-    update->movement = env_update_movement();
+    update->motion = env_update_motion();
     update->temperature = env_update_temperature();
 
     return update;
